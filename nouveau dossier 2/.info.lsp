@@ -1,3 +1,3 @@
-visibility=true;
-title=nouveau dossier 2;
-description=Description;
+[visibility]true[/visibility]
+[title]nouveau dossier 2[/title]
+[description]Description[/description]

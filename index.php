@@ -1,6 +1,5 @@
 <?php
 
-	
 	$content = scandir ('./');
 	
 	// on parcourt le répertoire courant
@@ -16,13 +15,15 @@
 				$file = fopen($content[$i].'/.info.lsp', 'r'); // ouverture du fichier d'information en lecture 
 				$infos = fread($file, filesize($content[$i].'/.info.lsp'));
 				fclose($file);
-				echo ' '.$infos;
+				echo 'Title : '.getTextBetween($infos, '[title]', '[/title]');
+				echo 'Description : '.getTextBetween($infos, '[description]', '[/description]');
+				                                                                  //echo getTextBetween('description="Description";', 'description="', '";');
 				}
 			
 			else {
 				echo 'nope';
 				$file = fopen($content[$i].'/.info.lsp', 'w+'); // création du fichier d'information
-				fwrite($file, "visibility=true;\r\n"."title=".$content[$i].";\r\ndescription=Description;");
+				fwrite($file, "[visibility]true[/visibility]\r\n[title]".$content[$i]."[/title]\r\n[description]Description[/description]");
 				fclose($file);
 				chmod($content[$i].'/.info.lsp', 0557); // modification des droits pour que l'utilisateur puisse modifier le fichier
 			}
@@ -31,7 +32,7 @@
 		}
 	}
 
-	fonction getTextBetween($text, $start, $end){
+	function getTextBetween($text, $start, $end){
 		
 		$startpos = strpos( $text, $start ) + strlen( $start ); 
 		$endpos = strpos( $text, $end ); 
